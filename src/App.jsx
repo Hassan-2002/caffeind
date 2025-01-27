@@ -1,7 +1,7 @@
 import { CoffeeForm, Hero, History, Layout, Stats } from "./components";
 
 function App() {
- const isAuthenticated = false;
+ const isAuthenticated = true;
  const authenticatedContent = (
    <>
    <Stats/>
@@ -11,7 +11,7 @@ function App() {
   return (
     <Layout>
       <Hero/>
-      <CoffeeForm/>
+      <CoffeeForm isAuthenticated={isAuthenticated}/>
       {isAuthenticated && (authenticatedContent)}
     </Layout>
        
