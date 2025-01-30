@@ -1,7 +1,9 @@
 import { CoffeeForm, Hero, History, Layout, Stats } from "./components";
-
+import { useAuth } from "./context/authContext";
 function App() {
- const isAuthenticated = true;
+  const {globalUser , globalData , isLoading} = useAuth();
+ const isAuthenticated = globalUser;
+ const isData = globalData && !!Object.keys(globalData || {}).length;
  const authenticatedContent = (
    <>
    <Stats/>
@@ -12,7 +14,8 @@ function App() {
     <Layout>
       <Hero/>
       <CoffeeForm isAuthenticated={isAuthenticated}/>
-      {isAuthenticated && (authenticatedContent)}
+      {isLoading && <p>Loading...</p>}
+      {(isAuthenticated && isData) && (authenticatedContent)}
     </Layout>
        
     

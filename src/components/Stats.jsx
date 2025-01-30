@@ -1,7 +1,9 @@
-import { calculateCoffeeStats, calculateCurrentCaffeineLevel, coffeeConsumptionHistory, getTopThreeCoffees, statusLevels } from "../utils";
-
+import { calculateCoffeeStats, calculateCurrentCaffeineLevel,  getTopThreeCoffees, statusLevels } from "../utils";
+import { useAuth } from "../context/authContext";
 function StatCard   (props) {
+
     const {lg, title, children} = props
+    
 
     return (
           <div className={"card stat-card " +(lg ? "col-span-2" : "")}> 
@@ -13,8 +15,9 @@ function StatCard   (props) {
 
 
 export default function Stats() {
-    const stats = calculateCoffeeStats(coffeeConsumptionHistory)
-    const caffeineLevel = calculateCurrentCaffeineLevel(coffeeConsumptionHistory)
+    const { globalData } = useAuth();
+    const stats = calculateCoffeeStats(globalData)
+    const caffeineLevel = calculateCurrentCaffeineLevel(globalData)
     const warningLevel = caffeineLevel < statusLevels['low'].maxLevel ?
     'low' : caffeineLevel < statusLevels['moderate'].maxLevel ? 'moderate' : 'high'
     return (
@@ -27,8 +30,8 @@ export default function Stats() {
             <StatCard lg title="Active Caffeine level">
                 <div className="status">
                 <p><span className="stat-text">{caffeineLevel}</span> mg</p>
-                 <h5 style={{color: statusLevels['high'].color , backgroundColor: statusLevels['high'].background} }>High</h5>   
-                  <p>{statusLevels['high'].description}</p>  
+                 <h5 style={{color: statusLevels['high'].color , backgroundColor: statusLevels['high'].background} }>{warningLevel}</h5>   
+                  <p>{statusLevels[warningLevel].description}</p>  
                     </div>
             </StatCard>
             <StatCard title="Daily Caffeine">
@@ -53,7 +56,7 @@ export default function Stats() {
                     
                 </thead>
                 <tbody>
-                    {getTopThreeCoffees(coffeeConsumptionHistory).map((coffee, coffeeindex) => {
+                    {getTopThreeCoffees(globalData).map((coffee, coffeeindex) => {
                         return (
                             <tr key={coffeeindex}>
                                 <td>{coffee.coffeeName}</td>

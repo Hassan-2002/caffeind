@@ -36,7 +36,14 @@ main h1 {
 h2 {
   padding-top: 1.5rem;
 }
-
+.error-text{
+  font-size: large;
+  color: red;
+}
+.success-text {
+  color: green;
+  font-size: large;
+}
 .gradient {
   background: linear-gradient(to right, #f7ff00, #db36a4);
 }
