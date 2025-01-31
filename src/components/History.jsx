@@ -17,7 +17,7 @@ export default function History() {
       <p><i>Hover for more info</i></p>
       <div className="coffee-history">
         {Object.keys(globalData)
-          .sort((a, b) => Number(a) - Number(b))
+          .sort((a, b) => Number(b) - Number(a))
           .map((utcTime, coffeeIndex) => {
             const coffee = globalData[utcTime];
             const timeSinceConsume = timeSinceConsumption(utcTime);

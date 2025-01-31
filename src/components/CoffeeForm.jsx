@@ -102,15 +102,15 @@ export default function CoffeeForm(props) {
                    </div> 
                     
                    {otherCoffeeTypes && (
-                         <select name="coffee-list" id="coffee-list">
-                           <option value="none">Select type</option>
+                         <select name="coffee-list" id="coffee-list" onChange={(e) => {setSelectedCoffee(e.target.value)}}>
+                           <option value="none" disabled selected >Select Type</option>
                             {coffeeOptions.map((option, optionIndex) => {
                             return (
-                           <option key={optionIndex} value={option.name}>
+                           <option key={optionIndex} value={option.name}  >
                              {option.name} ({option.caffeine} mg)
                           </option>
                       );
-             })}
+                      })}
                       </select>
                      )}
                     <h4>Add the cost $</h4>
